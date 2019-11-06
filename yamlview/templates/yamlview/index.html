@@ -1,0 +1,469 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>YAMLyzer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static "yamlview/tables.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "yamlview/canvas.css" %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">YAMLyzer</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link">Visualizer <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">File</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" data-toggle="modal" data-target="#openfileModal"
+                       href="#openfileModal">Open</a>
+                    <a class="dropdown-item" href="#">Save As</a>
+                </div>
+            </li>
+        </ul>
+        <!--<form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>-->
+        <span><a style="color:white" href="#yamlDetailModal" data-toggle="modal" data-target="#yamlDetailModal">render.yaml</a></span>
+    </div>
+</nav>
+
+
+<div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" accept=".yaml" single>
+                    </span>
+                </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="yamlDetailModal" tabindex="-1" role="dialog" aria-labelledby="yamlDetailModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="yamlDetailModalTitle">/path/render.yaml</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Repository</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>Name:</th>
+                        <td>https://opendev.org/airship/treasuremap</td>
+                    </tr>
+                    <tr>
+                        <th>Branch:</th>
+                        <td>Master</td>
+                    </tr>
+                    <tr>
+                        <th>Site:</th>
+                        <td>Seaworthy</td>
+                    </tr>
+                    <tr>
+                        <th>Other:</th>
+                        <td>10/05/2019 15:15:15</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<main>
+    <section id="tabs" class="project-tab">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-network-tab" data-toggle="tab"
+                               href="#nav-network" role="tab" aria-controls="nav-network"
+                               aria-selected="true">Network</a>
+                            <a class="nav-item nav-link" id="nav-node-tab" data-toggle="tab" href="#nav-node" role="tab"
+                               aria-controls="nav-node" aria-selected="false">Hosts</a>
+                            <a class="nav-item nav-link" id="nav-software-tab" data-toggle="tab" href="#nav-software"
+                               role="tab" aria-controls="nav-software" aria-selected="false">Software</a>
+                        </div>
+                    </nav>
+                    <br/>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-network" role="tabpanel"
+                             aria-labelledby="nav-network-tab">
+                            <table class="table box-shadow" cellspacing="0" id="maintable">
+                                <thead id="fixedhead">
+                                    <tr>
+                                        {% for name in data.network.header %}
+                                            <th>{{ name }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for net in data.network.body %}
+                                    <tr>
+                                        <td class="name">{{ net.name }}</td>
+                                        {% for row in net.body %}
+                                            {% if row.table %}
+                                                <td>
+                                                    <table class="inner">
+                                                        <thead>
+                                                            <tr>
+                                                                {% for name in row.value.header %}
+                                                                    <th>{{ name }}</th>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                {% for value in row.value.body %}
+                                                                    <td>{{ value }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            {% else %}
+                                                <td>{{ row.value }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div id="bottom_anchor"></div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-node" role="tabpanel" aria-labelledby="nav-node-tab">
+                            <table class="table" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Node</th>
+                                    <th>
+                                        Addressing
+                                    </th>
+                                    <th>Host Profile</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th class="name">cab23-r720-12</th>
+                                    <td>
+                                        <table class="inner">
+                                            <thead>
+                                            <tr>
+                                                <th>Network</th>
+                                                <th>IP Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>oob</td>
+                                                <td>10.23.104.12</td>
+                                            </tr>
+                                            <tr>
+                                                <td>pxe</td>
+                                                <td>10.23.20.12</td>
+                                            </tr>
+                                            <tr>
+                                                <td>oam</td>
+                                                <td>10.23.21.12</td>
+                                            </tr>
+                                            <tr>
+                                                <td>storage</td>
+                                                <td>10.23.23.12</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>cp_r720-primary</td>
+                                </tr>
+                                <tr>
+                                    <th class="name">cab23-r720-13</th>
+                                    <td>
+                                        <table class="inner">
+                                            <thead>
+                                            <tr>
+                                                <th>Network</th>
+                                                <th>IP Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>oob</td>
+                                                <td>10.23.104.13</td>
+                                            </tr>
+                                            <tr>
+                                                <td>pxe</td>
+                                                <td>10.23.20.13</td>
+                                            </tr>
+                                            <tr>
+                                                <td>oam</td>
+                                                <td>10.23.21.13</td>
+                                            </tr>
+                                            <tr>
+                                                <td>storage</td>
+                                                <td>10.23.23.13</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>dp_r720-primary</td>
+                                </tr>
+                                <tr>
+                                    <th class="name">cab23-r720-14</th>
+                                    <td>
+                                        <table class="inner">
+                                            <thead>
+                                            <tr>
+                                                <th>Network</th>
+                                                <th>IP Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>oob</td>
+                                                <td>10.23.104.14</td>
+                                            </tr>
+                                            <tr>
+                                                <td>pxe</td>
+                                                <td>10.23.20.14</td>
+                                            </tr>
+                                            <tr>
+                                                <td>oam</td>
+                                                <td>10.23.21.14</td>
+                                            </tr>
+                                            <tr>
+                                                <td>storage</td>
+                                                <td>10.23.23.14</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>dp_r720</td>
+                                </tr>
+                                <tr>
+                                    <th class="name">cab23-r720-17</th>
+                                    <td>
+                                        <table class="inner">
+                                            <thead>
+                                            <tr>
+                                                <th>Network</th>
+                                                <th>IP Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>oob</td>
+                                                <td>10.23.104.17</td>
+                                            </tr>
+                                            <tr>
+                                                <td>pxe</td>
+                                                <td>10.23.20.17</td>
+                                            </tr>
+                                            <tr>
+                                                <td>oam</td>
+                                                <td>10.23.21.17</td>
+                                            </tr>
+                                            <tr>
+                                                <td>storage</td>
+                                                <td>10.23.23.17</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>dp_r720</td>
+                                </tr>
+                                <tr>
+                                    <th class="name">cab23-r720-19</th>
+                                    <td>
+                                        <table class="inner">
+                                            <thead>
+                                            <tr>
+                                                <th>Network</th>
+                                                <th>IP Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>oob</td>
+                                                <td>10.23.104.19</td>
+                                            </tr>
+                                            <tr>
+                                                <td>pxe</td>
+                                                <td>10.23.20.19</td>
+                                            </tr>
+                                            <tr>
+                                                <td>oam</td>
+                                                <td>10.23.21.19</td>
+                                            </tr>
+                                            <tr>
+                                                <td>storage</td>
+                                                <td>10.23.23.19</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>dp_r720</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="nav-software" role="tabpanel" aria-labelledby="nav-software-tab">
+                            <table class="table" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Chart</th>
+                                    <th>Data Wait Timeout</th>
+                                    <th>Data Wait Labels</th>
+                                    <th>Group Name</th>
+                                    <th>Chart Group Sequenced (true/false)</th>
+                                    <th>Order of Chart Groups Within the Manifest (full-site)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th class="name">HELM</th>
+                                    <td>content</td>
+                                    <td>Other Content</td>
+                                    <td>name</td>
+                                    <td>true</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="name">Docker</th>
+                                    <td>content</td>
+                                    <td>Other Content</td>
+                                    <td>name</td>
+                                    <td>true</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="name">Airship</th>
+                                    <td>content</td>
+                                    <td>Other Content</td>
+                                    <td>name</td>
+                                    <td>true</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="{% static "yamlview/jquery-3.3.1.slim.min.js" %}"><\/script>')</script>
+<script>
+    $(function () {
+        'use strict'
+        $('[data-toggle="offcanvas"]').on('click', function () {
+            $('.offcanvas-collapse').toggleClass('open')
+        })
+    })
+
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function () {
+        $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+    });
+
+    //     function moveScroll(){
+    //     var scroll = $(window).scrollTop();
+    //     var anchor_top = $("#maintable").offset().top;
+    //     var anchor_bottom = $("#bottom_anchor").offset().top;
+    //     if (scroll>anchor_top && scroll<anchor_bottom) {
+    //     clone_table = $("#clone");
+    //     if(clone_table.length == 0){
+    //         clone_table = $("#maintable").clone();
+    //         clone_table.attr('id', 'clone');
+    //         clone_table.css({position:'fixed',
+    //                 'pointer-events': 'none',
+    //                 top:0});
+    //         clone_table.width($("#maintable").width());
+    //         $("#nav-network").append(clone_table);
+    //         $("#clone").css({visibility:'hidden'});
+    //         $("#clone").css({'visibility':'visible','pointer-events':'auto'});
+    //     }
+    //     } else {
+    //     $("#clone").remove();
+    //     }
+    // }
+    // $(window).scroll(moveScroll);
+</script>
+</body>
+
+</html>
