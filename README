@@ -1,0 +1,5 @@
+```
+python manage.my runserver 8080
+```
+
+http://localhost:8080/view
