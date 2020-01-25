@@ -36,10 +36,16 @@
 }
 
 
-.project-tab .table .fixedhead th{
-  position: sticky;
-  top: 0;
+#header-fixed {
+    position: fixed;
+    top: 0px; display:none;
+    background-color:white;
 }
+
+/*.project-tab .table .fixedhead th{*/
+/*  position: sticky;*/
+/*  top: 0;*/
+/*}*/
 
 .project-tab tbody{
     overflow:auto;
