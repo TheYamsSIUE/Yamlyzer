@@ -12,67 +12,61 @@
             </tr>
         </thead>
         <tbody>
-                <tr>
-                <td class = "name">oob</td>
-                <td>1500</td>
-                <td></td>
-                <td>10.23.104.0/24</td>
-                <td>
-                    <table  class="inner">
-                    <thead>
-                        <tr>
-                        <th>type</th>
-                        <th>start</th>
-                        <th>end</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>static</td>
-                        <td>10.23.104.11</td>
-                        <td>10.23.104.21</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </td>
-                <td></td>
-            </tr>
-                <tr>
-                <td class = "name">pxe</td>
-                <td>1500</td>
-                <td></td>
-                <td>10.23.20.0/24</td>
+            {% for item in network %}
+            <tr>
+                <td class = "name">{{item.name}}</td>
+                <td>{{item.MTU}}</td>
+                <td>{{item.VLAN}}</td>
+                <td>{{item.CIDR}}</td>
                 <td>
                     <table class="inner">
+                        {% if item.ranges %}
+                        <thead>
+                        <tr>
+                            <th>type</th>
+                            <th>start</th>
+                            <th>end</th>
+                        </tr>
+                        </thead>
+                        {% endif %}
+                        <tbody>
+                        {% for range in item.ranges %}
+                        <tr>
+                            <td>{{range.type}}</td>
+                            <td>{{range.start}}</td>
+                            <td>{{range.end}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                <table  class="inner">
+                    {% if item.dns %}
                     <thead>
                         <tr>
-                        <th>type</th>
-                        <th>start</th>
-                        <th>end</th>
+                            <th>domain</th>
+                            <th>servers</th>
                         </tr>
                     </thead>
+                    {% endif %}
                     <tbody>
+                        {% for domain in item.dns %}
                         <tr>
-                        <td>reserved</td>
-                        <td>10.23.20.1</td>
-                        <td>10.23.20.10</td>
+                            <td>{{domain.domain}}</td>
+                            <td>
+                                {% for server in domain.servers%}
+                                    {{server}} <br>
+                                {% endfor %}
+                            </td>
                         </tr>
-                        <tr>
-                        <td>static</td>
-                        <td>10.23.20.11</td>
-                        <td>10.23.20.21</td>
-                        </tr>
-                        <tr>
-                        <td>dhcp</td>
-                        <td>10.23.20.40</td>
-                        <td>10.23.20.80</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                     </table>
                 </td>
-                <td></td>
             </tr>
-            <tr>
+            {% endfor %}
+            <!-- <tr>
                 <td class = "name">oam</td>
                 <td>9100</td>
                 <td>21</td>
@@ -116,37 +110,8 @@
                     </tbody>
                     </table>
                 </td>
-            </tr>
-            <tr>
-                <td class = "name">storage</td>
-                <td>9100</td>
-                <td>23</td>
-                <td>10.23.23.0/24</td>
-                <td>
-                    <table class="inner">
-                    <thead>
-                        <tr>
-                        <th>type</th>
-                        <th>start</th>
-                        <th>end</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>reserved</td>
-                        <td>10.23.21.1</td>
-                        <td>10.23.21.10</td>
-                        </tr>
-                        <tr>
-                        <td>static</td>
-                        <td>10.23.21.11</td>
-                        <td>10.23.21.21</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </td>
-                <td></td>
-            </tr>
+            </tr> -->
+
         </tbody>
     </table>
     <div id="bottom_anchor"></div>
