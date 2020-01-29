@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">YAMLyzer</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link">Visualizer <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">File</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" data-toggle="modal" data-target="#openfileModal" href="#openfileModal">Open</a>
+            <a class="dropdown-item" href="#">Save As</a>
+          </div>
+        </li>
+      </ul>
+      <!--<form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>-->
+      <span><a style="color:white" href="#yamlDetailModal"  data-toggle="modal" data-target="#yamlDetailModal">render.yaml</a></span>
+    </div>
+  </nav>
+  
+  
+<div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group">
+              <span class="input-group-btn">
+                  <span class="btn btn-primary btn-file">
+                      Browse&hellip; <input type="file" accept=".yaml" single>
+                  </span>
+              </span>
+              <input type="text" class="form-control" readonly>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+    </div>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="yamlDetailModal" tabindex="-1" role="dialog" aria-labelledby="yamlDetailModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="yamlDetailModalTitle">/path/render.yaml</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <!-- The information about the yaml file that was uploaded goes here. Might not get a ton of info from the YAML but its here if possible -->
+          <table>
+          <thead><tr><th>Repository</th></tr></thead>
+          <tbody>
+            <tr><th>Name:</th><td>https://opendev.org/airship/treasuremap</td></tr>
+            <tr><th>Branch:</th><td>Master</td></tr>
+            <tr><th>Site:</th><td>Seaworthy</td></tr>
+            <tr><th>Other:</th><td>10/05/2019 15:15:15</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!--<button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>-->
+        </div>
+      </div>
+    </div>
+  </div>

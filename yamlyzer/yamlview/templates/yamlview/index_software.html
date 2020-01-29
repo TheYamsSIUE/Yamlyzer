@@ -1,0 +1,26 @@
+<div class="tab-pane fade" id="nav-software" role="tabpanel" aria-labelledby="nav-software-tab">
+    <table class="table" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Chart</th>
+                <th>Data Wait Timeout</th>
+                <th>Data Wait Labels</th>
+                <th>Group Name</th>
+                <th>Chart Group Sequenced (true/false)</th>
+                <th>Order of Chart Groups Within the Manifest (full-site)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in software %}
+                <tr>
+                    <th class="name">{{item.chart}}</th>
+                    <td>{{item.timeout}}</td>
+                    <td>{{item.labels}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.seq}}</td>
+                    <td>{{item.order}} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
