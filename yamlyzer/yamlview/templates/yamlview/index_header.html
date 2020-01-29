@@ -24,31 +24,36 @@
       <span><a style="color:white" href="#yamlDetailModal"  data-toggle="modal" data-target="#yamlDetailModal">render.yaml</a></span>
     </div>
   </nav>
-  
-  
+
+
 <div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="input-group">
-              <span class="input-group-btn">
-                  <span class="btn btn-primary btn-file">
-                      Browse&hellip; <input type="file" accept=".yaml" single>
+    <form method='post' class="form" role="form"  enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+                  <span class="input-group-btn">
+
+                      <span class="btn btn-primary btn-file">
+                          Browse&hellip;
+                          {% csrf_token %}
+                          <input type="file" name="myfile" accept=".yaml" single>
+                      </span>
                   </span>
-              </span>
-              <input type="text" class="form-control" readonly>
-          </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
-    </div>
+                  <input type="text" class="form-control" readonly>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+    </form>
   </div>
 </div>
 </div>
@@ -56,7 +61,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="yamlDetailModalTitle">/path/render.yaml</h5>
+          {% if uploaded_file_url %}
+          <!--This is also updated when the file changes and here is an example-->
+          <h5 class="modal-title" id="yamlDetailModalTitle">{{ uploaded_file_url }}</h5>
+          {% else %}
+          <h5 class="modal-title" id="yamlDetailModalTitle">Default-view-filename</h5>
+          {% endif %}
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

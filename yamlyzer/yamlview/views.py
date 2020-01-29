@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import yaml
+# import the logging library
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 def index(request):
@@ -13,7 +19,7 @@ def index(request):
             "type": "reserved",
             "start": "10.23.21.1",
             "end": "10.23.21.10"
-        }, 
+        },
         {
             "type": "static",
             "start": "10.23.21.11",
@@ -67,20 +73,39 @@ def index(request):
     }]
 
     software = [{
-        "chart":"contenttest", 
-        "timeout": "content", 
-        "labels":"othercontent", 
-        "name": "name", "seq": 
-        "true", 
+        "chart":"contenttest",
+        "timeout": "content",
+        "labels":"othercontent",
+        "name": "name", "seq":
+        "true",
         "order":""
         }, {
-        "chart":"contenttest2", 
-        "timeout": "content2", 
-        "labels":"othercontent2", 
-        "name": "name2", "seq": 
+        "chart":"contenttest2",
+        "timeout": "content2",
+        "labels":"othercontent2",
+        "name": "name2", "seq":
         "false", "order":""
     }]
-    
+
     # Combine all tabs data here
-    context = {"network": network, "hosts": hosts, "software": software}
-    return render(request, "yamlview/index.html", context)
+    logger.info("A request is made")
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        #fs = FileSystemStorage()
+        logger.info(myfile.name)
+        #filename = fs.save(myfile.name, myfile)
+        #uploaded_file_url = fs.url(filename)
+        readyforparse = yaml.load_all(myfile)
+        # send to parser here
+
+        # return, render the generated page based on dictionary form and filtered by the parser
+
+        return render(request, 'yamlview/index.html', {
+            'uploaded_file_url': myfile.name,
+            "network": network,
+            "hosts": hosts,
+            "software": software
+         })
+
+    return render(request, "yamlview/index.html", {"network": network, "hosts": hosts, "software": software})
+    
