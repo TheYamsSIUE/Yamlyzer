@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://getbootstrap.com/docs/4.1/examples/cover/# -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico"> -->
+
+  <title>YAMLyzer - Home</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/cover/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  {% load static %}
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/cover.css" %}">
+
+</head>
+
+<body class="text-center" data-gr-c-s-loaded="true">
+
+  <div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form method='post' class="form" role="form" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <span class="input-group-btn">
+
+                <span class="btn btn-primary btn-file">
+                  Browse&hellip;
+                  {% csrf_token %}
+                  <input type="file" name="myfile" accept=".yaml" single>
+                </span>
+              </span>
+              <input type="text" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">YAMLyzer</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link active" href="./">Home</a>
+          <a class="nav-link" href="/faqs">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">YAMLyzer</h1>
+      <p class="lead">A YAML visualizer for Airship</p>
+      <p class="lead">
+        <a data-toggle="modal" data-target="#openfileModal" href="#openfileModal"
+          class="btn btn-lg btn-secondary">Upload</a>
+      </p>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p>Made by <span style="color: white">The Yams</span> &copy; 2020</p>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    $(function () {
+      'use strict'
+      $('[data-toggle="offcanvas"]').on('click', function () {
+        $('.offcanvas-collapse').toggleClass('open')
+      })
+    })
+
+    $(document).on('change', '.btn-file :file', function () {
+      var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function () {
+      $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+          log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if (input.length) {
+          input.val(log);
+        } else {
+          if (log) alert(log);
+        }
+
+      });
+    });
+
+  </script>
+</body>
+
+</html>

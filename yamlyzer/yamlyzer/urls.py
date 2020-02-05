@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from yamlyzer import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('view/', include('yamlview.urls')),
+    path('', views.main, name='main'),
+    path('faqs/',views.faq,name='faq'),
 ]
