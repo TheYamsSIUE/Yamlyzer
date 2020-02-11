@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import yaml
+from yamlview.network import networkinfo
 # import the logging library
 import logging
 
@@ -97,15 +98,19 @@ def index(request):
         #uploaded_file_url = fs.url(filename)
         readyforparse = yaml.load_all(myfile)
         # send to parser here
+        ntwk = networkinfo(readyforparse)
+        # in the backend window shows ntwk is not empty
+        print(len(ntwk))
 
         # return, render the generated page based on dictionary form and filtered by the parser
-
+        # for some odd reason this does not execute.
         return render(request, 'yamlview/index.html', {
             'uploaded_file_url': myfile.name,
-            "network": network,
+            "network": ntwk,
             "hosts": hosts,
             "software": software
          })
 
-    return render(request, "yamlview/index.html", {"network": network, "hosts": hosts, "software": software})
+    # need to change this to a file not uploaded page
+    return render(request, "yamlview/index.html", {"network": [], "hosts": hosts, "software": software})
     
