@@ -1,7 +1,6 @@
 class Hosts:
 
-    def render(yaml):
-        docs = list(yaml)
+    def render(docs):
         matches = []
         hosts = []
         keys = [ "addressing", "host_profile" ]

@@ -1,4 +1,5 @@
 from .hosts import Hosts
+from .networks import Networks
 
 class Parse:
 
@@ -10,39 +11,12 @@ class Parse:
         self.software = []
 
     def getData(self):
-        # self.network = Network.render(yamlDocs)
-        self.hosts = Hosts.render(self.yamlDocs)
-        # self.software = Software.render(yamlDocs)
+        docs = list(self.yamlDocs)
+        self.network = Networks.render(docs)
+        self.hosts = Hosts.render(docs)
+        # self.software = Software.render(docs)
 
         # Temp hardcoded data
-        self.network = [{
-            "name": "oam",
-            "MTU": "9100",
-            "VLAN": "21",
-            "CIDR": "10.23.21.0/24",
-            "ranges": [{
-                "type": "reserved",
-                "start": "10.23.21.1",
-                "end": "10.23.21.10"
-            },
-            {
-                "type": "static",
-                "start": "10.23.21.11",
-                "end": "10.23.21.21"
-            }],
-            "dns": [{
-                "domain": "atlantafoundry.com",
-                "servers": ["8.8.8.8", "1.1.1.1", "8.8.4.4"]
-            }]
-        }, {
-            "name": "pxe",
-            "MTU": "5200",
-            "VLAN": "",
-            "CIDR": "10.23.21.2/24",
-            "ranges": [],
-            "dns": []
-        }]
-
         self.software = [{
             "chart":"contenttest",
             "timeout": "content",

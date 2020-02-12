@@ -19,7 +19,7 @@ def index(request):
         logger.info(myfile.name)
         #filename = fs.save(myfile.name, myfile)
         #uploaded_file_url = fs.url(filename)
-        parser = Parse(myfile.name, yaml.load_all(myfile))
+        parser = Parse(myfile.name, yaml.load_all(myfile, Loader = yaml.FullLoader))
         # send to parser here
 
         # return, render the generated page based on dictionary form and filtered by the parser
@@ -27,4 +27,3 @@ def index(request):
         return render(request, 'yamlview/index.html', parser.getData())
 
     return redirect('/')
-    
