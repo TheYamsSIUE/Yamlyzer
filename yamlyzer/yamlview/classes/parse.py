@@ -1,6 +1,7 @@
 class Parse:
 
-    def __init__(self, yamlDocs):
+    def __init__(self, filename, yamlDocs):
+        self.filename = filename
         self.yaml = yamlDocs
         self.network = []
         self.hosts = []
@@ -90,5 +91,5 @@ class Parse:
         }]
 
 
-        return {"network": self.network, "hosts": self.hosts, "software": self.software}
+        return {"uploaded_file_url": self.filename, "network": self.network, "hosts": self.hosts, "software": self.software}
         
