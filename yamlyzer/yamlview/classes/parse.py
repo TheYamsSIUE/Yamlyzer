@@ -1,15 +1,17 @@
+from .hosts import Hosts
+
 class Parse:
 
     def __init__(self, filename, yamlDocs):
         self.filename = filename
-        self.yaml = yamlDocs
+        self.yamlDocs = yamlDocs
         self.network = []
         self.hosts = []
         self.software = []
 
     def getData(self):
         # self.network = Network.render(yamlDocs)
-        # self.hosts = Hosts.render(yamlDocs)
+        self.hosts = Hosts.render(self.yamlDocs)
         # self.software = Software.render(yamlDocs)
 
         # Temp hardcoded data
@@ -41,40 +43,6 @@ class Parse:
             "dns": []
         }]
 
-        self.hosts = [{
-            "name": "cab23-r720-12",
-            "profile": "cp_r270-primary",
-            "addresses": [{
-                "network": "oob",
-                "ip": "20.23.104.12"
-            }, {
-                "network": "pxe",
-                "ip": "20.23.20.12"
-            }, {
-                "network": "oam",
-                "ip": "20.23.21.12"
-            }, {
-                "network": "storage",
-                "ip": "20.23.23.12"
-            }]
-        }, {
-            "name": "cab23-r720-13",
-            "profile": "cp_r270",
-            "addresses": [{
-                "network": "oob",
-                "ip": "21.23.104.12"
-            }, {
-                "network": "pxe",
-                "ip": "21.23.20.12"
-            }, {
-                "network": "oam",
-                "ip": "21.23.21.12"
-            }, {
-                "network": "storage",
-                "ip": "21.23.23.12"
-            }]
-        }]
-
         self.software = [{
             "chart":"contenttest",
             "timeout": "content",
@@ -92,4 +60,3 @@ class Parse:
 
 
         return {"uploaded_file_url": self.filename, "network": self.network, "hosts": self.hosts, "software": self.software}
-        

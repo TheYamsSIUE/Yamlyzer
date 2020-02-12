@@ -24,16 +24,16 @@
                     {% endif %}
                     </thead>
                     <tbody>
-                        {% for addr in item.addresses %}
+                        {% for addr in item.addressing %}
                         <tr>
                             <td>{{addr.network}}</td>
-                            <td>{{addr.ip}}</td>
+                            <td>{{addr.address}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                    </table>
                 </td>
-                <td>{{item.profile}}</td>
+                <td>{{item.host_profile}}</td>
             </tr>
             {% endfor %}
         </tbody>
