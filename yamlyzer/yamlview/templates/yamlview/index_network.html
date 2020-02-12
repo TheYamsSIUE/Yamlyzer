@@ -15,9 +15,9 @@
             {% for item in network %}
             <tr>
                 <td class = "name">{{item.name}}</td>
-                <td>{{item.MTU}}</td>
-                <td>{{item.VLAN}}</td>
-                <td>{{item.CIDR}}</td>
+                <td>{{item.mtu}}</td>
+                <td>{{item.vlan}}</td>
+                <td>{{item.cidr}}</td>
                 <td>
                     <table class="inner">
                         {% if item.ranges %}
@@ -51,7 +51,7 @@
                     </thead>
                     {% endif %}
                     <tbody>
-                        {% for domain in item.dns %}
+                        <!-- {% for domain in item.dns %}
                         <tr>
                             <td>{{domain.domain}}</td>
                             <td>
@@ -60,7 +60,11 @@
                                 {% endfor %}
                             </td>
                         </tr>
-                        {% endfor %}
+                        {% endfor %} -->
+                        <tr>
+                            <td>{{item.dns.domain}}</td>
+                            <td>{{item.dns.servers}}</td>
+                        </tr>
                     </tbody>
                     </table>
                 </td>

@@ -8,7 +8,7 @@ def networkinfo(loaded):
     # To find the yaml doc that contains network information
     # look for schema: drydock/Network/v1
     gooddoc = []   
-    keys = ["name","mtu","vlan","vidr","ranges","dns"]
+    keys = ["mtu","vlan","cidr","ranges","dns"]
     for dic in data:
         for(key,value) in dic.items():            
             #  "schema": "drydock/Network/v1"
@@ -23,6 +23,8 @@ def networkinfo(loaded):
                 empty_dict[k]=gooddoc[x]["data"][k]
             except KeyError:
                 empty_dict[k] = ""
+                if k == "ranges":
+                    empty_dict[k] = []
         d.append(empty_dict)  
     return d
         
