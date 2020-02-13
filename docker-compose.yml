@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: sh -c "cd yamlyzer && python manage.py runserver 0.0.0.0:8080"
+    container_name: yamlapp
+    volumes:
+      - .:/yamlapp
+    ports:
+      - "8080:8080"
