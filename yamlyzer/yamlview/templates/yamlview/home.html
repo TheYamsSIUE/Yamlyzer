@@ -56,7 +56,14 @@
       </div>
     </div>
   </div>
-
+  <div class="covering-panel d-none " id="loader">
+    <div class="psoload text-center" >
+      <div class="straight"></div>
+      <div class="curve"></div>
+      <div class="center"></div>
+      <div class="inner"></div>
+    </div>
+  </div>
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
       <div class="inner">
@@ -72,8 +79,8 @@
       <h1 class="cover-heading">YAMLyzer</h1>
       <p class="lead">A YAML visualizer for Airship</p>
       <p class="lead">
-        <a data-toggle="modal" data-target="#openfileModal" href="#openfileModal"
-          class="btn btn-lg btn-secondary">Upload</a>
+        <button data-toggle="modal" data-target="#openfileModal" href="#openfileModal"
+          class="btn btn-lg btn-light">Upload</button>
       </p>
     </main>
 
@@ -152,6 +159,7 @@
 
     form.confirm.disabled = true;
     $('#confirm').html('Please wait...');
+    $('#loader').removeClass('d-none');
     return true;
   }
 
