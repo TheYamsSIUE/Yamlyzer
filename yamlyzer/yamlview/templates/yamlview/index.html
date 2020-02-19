@@ -72,6 +72,21 @@
 
       });
   });
+  function checkForm(form)
+  {
+    var fname = $.trim($('#filename').val());
+
+    // Check if empty of not
+    if (fname === '') {
+        alert('No file uploaded!');
+        return false;
+    }
+
+    form.confirm.disabled = true;
+    $("#confirm").html("Please wait...");
+    $('#loader').removeClass('d-none');
+    return true;
+  }
 
 //     function moveScroll(){
 //     var scroll = $(window).scrollTop();

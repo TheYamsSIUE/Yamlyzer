@@ -29,7 +29,7 @@
 <div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content">
-    <form method='post' class="form" role="form"  enctype="multipart/form-data" action="/view/">
+    <form method='post' class="form" role="form"  enctype="multipart/form-data" action="/view/"  onsubmit="return checkForm(this);">
         <div class="modal-header">
           <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -43,7 +43,7 @@
                       <span class="btn btn-primary btn-file">
                           Browse&hellip;
                           {% csrf_token %}
-                          <input type="file" name="myfile" accept=".yaml" single>
+                          <input type="file" id='filename' name="myfile" accept=".yaml" single>
                       </span>
                   </span>
                   <input type="text" class="form-control" readonly>
@@ -51,12 +51,22 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Confirm</button>
+          <button type="submit" name="confirm" class="btn btn-primary" id ="confirm">Confirm</button>
         </div>
     </form>
   </div>
 </div>
 </div>
+
+<div class="covering-panel d-none " id="loader">
+  <div class="psoload text-center" >
+    <div class="straight"></div>
+    <div class="curve"></div>
+    <div class="center"></div>
+    <div class="inner"></div>
+  </div>
+</div>
+
 <div class="modal fade" id="yamlDetailModal" tabindex="-1" role="dialog" aria-labelledby="yamlDetailModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">

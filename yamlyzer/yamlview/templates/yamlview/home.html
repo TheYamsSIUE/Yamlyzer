@@ -28,7 +28,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <form method='post' class="form" role="form" enctype="multipart/form-data" action="/view/">
+        <form method='post' class="form" role="form" enctype="multipart/form-data" action="/view/" onsubmit="return checkForm(this);">
           <div class="modal-header">
             <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -42,7 +42,7 @@
                 <span class="btn btn-primary btn-file">
                   Browse&hellip;
                   {% csrf_token %}
-                  <input type="file" name="myfile" accept=".yaml" single>
+                  <input type="file" id="filename" name="myfile" accept=".yaml" single>
                 </span>
               </span>
               <input type="text" class="form-control" readonly>
@@ -50,13 +50,20 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Confirm</button>
+            <button type="submit" name="confirm" class="btn btn-primary" id="confirm">Confirm</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-
+  <div class="covering-panel d-none " id="loader">
+    <div class="psoload text-center" >
+      <div class="straight"></div>
+      <div class="curve"></div>
+      <div class="center"></div>
+      <div class="inner"></div>
+    </div>
+  </div>
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
       <div class="inner">
@@ -72,8 +79,8 @@
       <h1 class="cover-heading">YAMLyzer</h1>
       <p class="lead">A YAML visualizer for Airship</p>
       <p class="lead">
-        <a data-toggle="modal" data-target="#openfileModal" href="#openfileModal"
-          class="btn btn-lg btn-secondary">Upload</a>
+        <button data-toggle="modal" data-target="#openfileModal" href="#openfileModal"
+          class="btn btn-lg btn-light">Upload</button>
       </p>
     </main>
 
@@ -125,6 +132,38 @@
       });
     });
 
+    // //  Bind the event handler to the "submit" JavaScript event
+    // $('form').submit(function () {
+
+    // // Get the File Name value and trim it
+    // var fname = $.trim($('#filename').val());
+
+    // // Check if empty of not
+    // if (fname === '') {
+    //     alert('No file uploaded!');
+    //     return false;
+    // }
+
+    // $('#confirm').disabled = true;
+    // return true;
+    // });
+  function checkForm(form)
+  {
+    var fname = $.trim($('#filename').val());
+
+    // Check if empty of not
+    if (fname === '') {
+        alert('No file uploaded!');
+        return false;
+    }
+
+    form.confirm.disabled = true;
+    $('#confirm').html('Please wait...');
+    $('#loader').removeClass('d-none');
+    return true;
+  }
+
+    
   </script>
 </body>
 
