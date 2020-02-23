@@ -17,21 +17,13 @@ class Parse:
         self.hosts = Hosts.render(docs)
         self.software = Software.render(docs)
 
-        # Temp hardcoded data
-        # self.software = [{
-        #     "chart":"contenttest",
-        #     "timeout": "content",
-        #     "labels":"othercontent",
-        #     "name": "name", "seq":
-        #     "true",
-        #     "order":""
-        #     }, {
-        #     "chart":"contenttest2",
-        #     "timeout": "content2",
-        #     "labels":"othercontent2",
-        #     "name": "name2", "seq":
-        #     "false", "order":""
-        # }]
+        # Sort networks by name
+        self.network = sorted(self.network, key = lambda i: [i['name']])
 
+        # Sort hosts by Node
+        self.hosts = sorted(self.hosts, key = lambda i: [i['name']])
+
+        # Sort software by Chart
+        self.software = sorted(self.software, key = lambda i: [i['chart']])
 
         return {"uploaded_file_url": self.filename, "network": self.network, "hosts": self.hosts, "software": self.software}
