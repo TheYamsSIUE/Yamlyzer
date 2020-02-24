@@ -1,7 +1,7 @@
 {% block network %}
 <div class="tab-pane fade show active" id="nav-network" role="tabpanel" aria-labelledby="nav-network-tab">
-    <table class="table box-shadow" cellspacing="0" id = "maintable">
-        <thead id = "fixedhead">
+    <table class="table box-shadow" cellspacing="0" id="maintable">
+        <thead id="fixedhead">
             <tr>
                 <th>Network</th>
                 <th>MTU</th>
@@ -14,59 +14,53 @@
         <tbody>
             {% for item in network %}
             <tr>
-                <td class = "name">{{item.name}}</td>
+                <td class="name">{{item.name}}</td>
                 <td>{{item.mtu}}</td>
                 <td>{{item.vlan}}</td>
                 <td>{{item.cidr}}</td>
                 <td>
+                    {% if item.ranges %}
                     <table class="inner">
-                        {% if item.ranges %}
                         <thead>
-                        <tr>
-                            <th>type</th>
-                            <th>start</th>
-                            <th>end</th>
-                        </tr>
+                            <tr>
+                                <th>type</th>
+                                <th>start</th>
+                                <th>end</th>
+                            </tr>
                         </thead>
-                        {% endif %}
                         <tbody>
-                        {% for range in item.ranges %}
-                        <tr>
-                            <td>{{range.type}}</td>
-                            <td>{{range.start}}</td>
-                            <td>{{range.end}}</td>
-                        </tr>
-                        {% endfor %}
+                            {% for range in item.ranges %}
+                            <tr>
+                                <td>{{range.type}}</td>
+                                <td>{{range.start}}</td>
+                                <td>{{range.end}}</td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
+                    {% endif %}
                 </td>
                 <td>
-                <table  class="inner">
                     {% if item.dns %}
-                    <thead>
-                        <tr>
-                            <th>domain</th>
-                            <th>servers</th>
-                        </tr>
-                    </thead>
-                    {% endif %}
-                    <tbody>
-                        <!-- {% for domain in item.dns %}
-                        <tr>
-                            <td>{{domain.domain}}</td>
-                            <td>
-                                {% for server in domain.servers%}
+                    <table class="inner">
+                        <thead>
+                            <tr>
+                                <th>domain</th>
+                                <th>servers</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{item.dns.domain}}</td>
+                                <td>
+                                    {% for server in item.dns.servers%}
                                     {{server}} <br>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        {% endfor %} -->
-                        <tr>
-                            <td>{{item.dns.domain}}</td>
-                            <td>{{item.dns.servers}}</td>
-                        </tr>
-                    </tbody>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

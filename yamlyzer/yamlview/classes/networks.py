@@ -17,7 +17,13 @@ class Networks:
             empty_dict["name"]=gooddoc[x]["metadata"]["name"]
             for k in keys:
                 try:
-                    empty_dict[k]=gooddoc[x]["data"][k]
+                    # Reform the servers for formatting
+                    if k == "dns":
+                        temp = gooddoc[x]["data"][k]
+                        temp["servers"] = gooddoc[x]["data"][k]["servers"].split(",")
+                        empty_dict[k] = temp
+                    else:
+                        empty_dict[k] = gooddoc[x]["data"][k]
                 except KeyError:
                     empty_dict[k] = ""
                     if k == "ranges":
