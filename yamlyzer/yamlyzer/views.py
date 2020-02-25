@@ -15,4 +15,9 @@ def main(request):
 
 def faq(request):
     return render(request,'yamlview/faq.html')
-    
+
+def handler404(request, Exception):
+    return render(request, 'yamlview/404.html')
+
+def handler500(request):
+    return render(request, 'yamlview/404.html')

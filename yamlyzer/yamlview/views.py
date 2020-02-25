@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http import Http404
 import yaml
 # import the logging library
 import logging
@@ -19,9 +20,11 @@ def index(request):
         logger.info(myfile.name)
         #filename = fs.save(myfile.name, myfile)
         #uploaded_file_url = fs.url(filename)
-        parser = Parse(myfile.name, yaml.load_all(myfile, Loader = yaml.FullLoader))
+        try:
+            parser = Parse(myfile.name, yaml.load_all(myfile, Loader = yaml.FullLoader))
         # send to parser here
-
+        except parser.DoesNotExist:
+            raise Http404("dne")
         # return, render the generated page based on dictionary form and filtered by the parser
 
         return render(request, 'yamlview/index.html', parser.getData())
