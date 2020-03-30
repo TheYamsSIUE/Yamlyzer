@@ -1,5 +1,6 @@
 from .hosts import Hosts
 from .networks import Networks
+from .site import Site
 
 class Parse:
 
@@ -9,12 +10,14 @@ class Parse:
         self.network = []
         self.hosts = []
         self.software = []
+        self.site = {}
 
     def getData(self):
         docs = list(self.yamlDocs)
         self.network = Networks.render(docs)
         self.hosts = Hosts.render(docs)
-        # self.software = Software.render(docs)
+        self.software = Software.render(docs)
+        self.site = Site.render(docs)
 
         # Temp hardcoded data
         self.software = [{
@@ -33,4 +36,4 @@ class Parse:
         }]
 
 
-        return {"uploaded_file_url": self.filename, "network": self.network, "hosts": self.hosts, "software": self.software}
+        return {"uploaded_file_url": self.filename, "site": self.site, "network": self.network, "hosts": self.hosts, "software": self.software}
