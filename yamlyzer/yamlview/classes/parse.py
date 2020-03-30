@@ -29,5 +29,4 @@ class Parse:
         # Sort software by Chart
         self.software = sorted(self.software, key = lambda i: [i['chart']])
 
-        return {"uploaded_file_url": self.filename, "network": self.network, "hosts": self.hosts, "software": self.software}
         return {"uploaded_file_url": self.filename, "site": self.site, "network": self.network, "hosts": self.hosts, "software": self.software}
