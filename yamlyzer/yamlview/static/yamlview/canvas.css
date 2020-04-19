@@ -1,0 +1,334 @@
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+body {
+  padding-top: 56px;
+}
+
+@media (max-width: 767.98px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 56px; /* Height of navbar */
+    bottom: 0;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    background-color: var(--gray-dark);
+    transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  .offcanvas-collapse.open {
+    -webkit-transform: translateX(-1rem);
+    transform: translateX(-1rem); /* Account for horizontal padding on navbar */
+  }
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  color: rgba(255, 255, 255, .75);
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-underline .nav-link {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: .875rem;
+  color: var(--secondary);
+}
+
+.nav-underline .nav-link:hover {
+  color: var(--blue);
+}
+
+.nav-underline .active {
+  font-weight: 500;
+  color: var(--gray-dark);
+}
+
+.text-white-50 { color: rgba(255, 255, 255, .5); }
+
+.bg-purple { background-color: var(--purple); }
+
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.lh-100 { line-height: 1; }
+.lh-125 { line-height: 1.25; }
+.lh-150 { line-height: 1.5; }
+
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+
+/* Loader */
+
+@keyframes arrow-spin {
+  100% {
+    transform: rotate(179deg);
+  }
+}
+
+@-webkit-keyframes arrow-spin {
+  100% {
+    -webkit-transform: rotate(179deg);
+  }
+}
+
+.covering-panel {
+  background: rgba(0,0,0, 0.6);  
+  height: 100vh;             
+  position: fixed;             
+  width: 100%;                 
+  z-index: 2000;                   
+}
+
+.psoload,
+.psoload *,
+.psoload *:before,
+.psoload *:after {
+  box-sizing: border-box;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}
+
+.psoload {
+  /* position: relative; */
+  margin: 30px auto;
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  z-index: 3000;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%,-50%);
+}
+
+.psoload .straight,
+.psoload .curve {
+  position: absolute;
+  top: 17.5%;
+  left: 17.5%;
+  width: 65%;
+  height: 65%;
+  border-radius: 100%;
+  animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite;
+  -webkit-animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite;
+}
+
+.psoload .straight:before,
+.psoload .straight:after {
+  content: '';
+  position: absolute;
+  width: 15%;
+  border-bottom: 3px solid #eee;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.psoload .straight:before {
+  top: 5px;
+  left: 5px;
+}
+
+.psoload .straight:after {
+  bottom: 5px;
+  right: 5px;
+}
+
+.psoload .curve:before,
+.psoload .curve:after {
+  content: '';
+  position: absolute;
+  width: 45px;
+  height: 10px;
+  border: solid 3px transparent;
+  border-top-color: #eee;
+  border-radius: 50%/10px 10px 0 0;
+  z-index: 90001;
+}
+
+.psoload .curve:before {
+  transform: rotate(-63deg) translateX(-27px) translateY(-4px);
+  -webkit-transform: rotate(-63deg) translateX(-27px) translateY(-4px);
+}
+
+.psoload .curve:after {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(115deg) translateX(-26px) translateY(-12px);
+  -webkit-transform: rotate(115deg) translateX(-26px) translateY(-12px);
+}
+
+.psoload .center {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border-radius: 100%;
+  border: 3px solid #eee;
+}
+
+.psoload .inner {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  border-radius: 100%;
+  animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite reverse;
+  -webkit-animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite reverse;
+}
+
+.psoload .inner:before,
+.psoload .inner:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-bottom-width: 11px;
+  border-bottom-color: #eee;
+}
+
+.psoload .inner:before {
+  top: 12px;
+  left: 12px;
+  transform: rotate(128deg);
+  -webkit-transform: rotate(128deg);
+}
+
+.psoload .inner:after {
+  bottom: 12px;
+  right: 12px;
+  transform: rotate(-48deg);
+  -webkit-transform: rotate(-48deg);
+}
+
+.errorcontainer {
+  width: 100vw;
+  height: 90vh;
+}
+.error-template {
+  position: relative;
+  top: 15%;
+  text-align: center;
+}
+.error-actions {
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.error-actions .btn { 
+  margin-right:10px; 
+}
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
+.errorbar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 96px;
+  font-family: 'Fira Mono', monospace;
+  letter-spacing: -7px;
+  animation: glitch 1s linear infinite;
+}
+
+@keyframes glitch{
+  2%,64%{
+    transform: translate(2px,0) skew(0deg);
+  }
+  4%,60%{
+    transform: translate(-2px,0) skew(0deg);
+  }
+  62%{
+    transform: translate(0,0) skew(5deg); 
+  }
+}
+
+.errorbar:before,
+.errorbar:after{
+  content: attr(title);
+  position: absolute;
+  /* left: 0; */
+}
+
+.errorbar:before{
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop{
+  2%,64%{
+    transform: translate(2px,-2px);
+  }
+  4%,60%{
+    transform: translate(-2px,2px);
+  }
+  62%{
+    transform: translate(13px,-1px) skew(-13deg); 
+  }
+}
+
+.errorbar:after{
+  animation: glitchBotom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBotom{
+  2%,64%{
+    transform: translate(-2px,0);
+  }
+  4%,60%{
+    transform: translate(-2px,0);
+  }
+  62%{
+    transform: translate(-22px,5px) skew(21deg); 
+  }
+}

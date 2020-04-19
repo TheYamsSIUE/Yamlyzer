@@ -1,0 +1,41 @@
+<div class="tab-pane fade" id="nav-node" role="tabpanel" aria-labelledby="nav-node-tab">
+    <table class="table" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Node</th>
+                <th>
+                  Addressing
+                </th>
+                <th>Host Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in hosts %}
+            <tr>
+                <th class="name">{{item.name}}</th>
+                <td>
+                  <table class="inner">
+                    <thead>
+                    {% if item.addresses %}
+                        <tr>
+                        <th>Network</th>
+                        <th>IP Address</th>
+                        </tr>
+                    {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for addr in item.addressing %}
+                        <tr>
+                            <td>{{addr.network}}</td>
+                            <td>{{addr.address}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                   </table>
+                </td>
+                <td>{{item.host_profile}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>YAMLyzer</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/bootstrap.min.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/tables.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/canvas.css" %}">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="../">YAMLyzer</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link">Error <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="text-center mx-auto errorcontainer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1 style="font-size: 102px">Oops!</h1>
+                <div style="justify-content: center"><div class="errorbar">Error</div></div>
+                <div class="error-details">
+                    Sorry, an error has occured, Requested page not found!
+                </div>
+                <div class="error-actions">
+                    <a href="../" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a><a href="mailto:yams@example.com?Subject=Yamlyzer%20Issue" class="btn btn-secondary btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script src="{% static "yamlview/jquery-3.3.1.slim.min.js" %}"></script>
+  <script src="{% static "yamlview/popper.min.js" %}"></script>
+  <script src="{% static "yamlview/bootstrap.min.js" %}"></script>
+  <script>
+    $(function () {
+      'use strict'
+      $('[data-toggle="offcanvas"]').on('click', function () {
+        $('.offcanvas-collapse').toggleClass('open')
+      })
+    })
+
+  </script>
+</body>
+
+<!-- <footer class="pt-4 my-md-5 pt-md-5 border-top">
+  <div class="row">
+    <div class="col-12 col-md">
+    </div>
+    <div class="col-6 col-md">
+    </div>
+    <div class="col-6 col-md">
+      <h5>Resources</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="https://wiki.openstack.org/wiki/Airship">Airship</a></li>
+        <li><a class="text-muted" href="https://github.com/TheYamsSIUE/Yamlyzer">Yamlyzer</a></li>
+        <li><a class="text-muted" href="#">Another resource</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Team</a></li>
+        <li><a class="text-muted" href="#">Privacy</a></li>
+        <li><a class="text-muted" href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer> -->
+
+</html>

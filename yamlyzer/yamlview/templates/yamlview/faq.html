@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>YAMLyzer</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/bootstrap.min.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/tables.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "yamlview/canvas.css" %}">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="../">YAMLyzer</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link">FAQs <span class="sr-only">(current)</span></a>
+        </li>
+
+      </ul>
+      <!--<form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>-->
+    </div>
+  </nav>
+
+  <main>
+    <!-- <div class="text-center"> -->
+    <br>
+    <div class="card text-center col-md-11 mx-auto">
+      <div class="card-body ">
+        <h5> FAQs </h5>
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne">
+                  Why YAMLyzer?
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                The YAMLyzer is aimed to make rendered yaml files from Airship Projects into a more readable form.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                  aria-expanded="false" aria-controls="collapseTwo">
+                  How to use it?
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                <p>1. Use the render command to generate a rendered yaml file</p>
+                <p>2. Use the Upload button above to upload the rendered yaml file</p>
+                <p>3. View your visualized yaml file</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  How does this visualizer work?
+                </button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body">
+                This visualizer is powered by python3-django and the PyYAML library.
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+    <!-- </div> -->
+  </main>
+
+  <div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form method='post' class="form" role="form" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <span class="input-group-btn">
+
+                <span class="btn btn-primary btn-file">
+                  Browse&hellip;
+                  {% csrf_token %}
+                  <input type="file" name="myfile" accept=".yaml" single>
+                </span>
+              </span>
+              <input type="text" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static "yamlview/jquery-3.3.1.slim.min.js" %}"></script>
+  <script src="{% static "yamlview/popper.min.js" %}"></script>
+  <script src="{% static "yamlview/bootstrap.min.js" %}"></script>
+  <script>
+    $(function () {
+      'use strict'
+      $('[data-toggle="offcanvas"]').on('click', function () {
+        $('.offcanvas-collapse').toggleClass('open')
+      })
+    })
+
+    $(document).on('change', '.btn-file :file', function () {
+      var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function () {
+      $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+          log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if (input.length) {
+          input.val(log);
+        } else {
+          if (log) alert(log);
+        }
+
+      });
+    });
+
+  </script>
+</body>
+
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
+  <div class="row">
+    <div class="col-12 col-md">
+      <!-- <img class="mb-2" src="../../assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+      <small class="d-block mb-3 text-muted">© 2017-2018</small> -->
+    </div>
+    <div class="col-6 col-md">
+    </div>
+    <div class="col-6 col-md">
+      <h5>Resources</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="https://wiki.openstack.org/wiki/Airship">Airship</a></li>
+        <li><a class="text-muted" href="https://github.com/TheYamsSIUE/Yamlyzer">Yamlyzer</a></li>
+        <li><a class="text-muted" href="#">Another resource</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Team</a></li>
+        <li><a class="text-muted" href="#">Privacy</a></li>
+        <li><a class="text-muted" href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</html>

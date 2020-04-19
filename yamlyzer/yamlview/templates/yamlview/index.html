@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>YAMLyzer</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "yamlview/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "yamlview/tables.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "yamlview/canvas.css" %}">
+</head>
+<body>
+
+{% include "yamlview/index_header.html" %}
+  <main>
+    <section id="tabs" class="project-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-network-tab" data-toggle="tab" href="#nav-network" role="tab" aria-controls="nav-network" aria-selected="true">Network</a>
+                                <a class="nav-item nav-link" id="nav-node-tab" data-toggle="tab" href="#nav-node" role="tab" aria-controls="nav-node" aria-selected="false">Hosts</a>
+                                <a class="nav-item nav-link" id="nav-software-tab" data-toggle="tab" href="#nav-software" role="tab" aria-controls="nav-software" aria-selected="false">Software</a>
+                            </div>
+                        </nav>
+                        <br />
+                        <div class="tab-content" id="nav-tabContent">
+                        {% include "yamlview/index_network.html" %}
+                        {% include "yamlview/index_hosts.html" %}
+                        {% include "yamlview/index_software.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="{% static "yamlview/jquery-3.3.1.slim.min.js" %}"></script>
+    <script src="{% static "yamlview/popper.min.js" %}"></script>
+    <script src="{% static "yamlview/bootstrap.min.js" %}"></script>
+    <script>
+        $(function () {
+        'use strict'
+        $('[data-toggle="offcanvas"]').on('click', function () {
+        $('.offcanvas-collapse').toggleClass('open')
+        })
+      })
+
+      $(document).on('change', '.btn-file :file', function() {
+    var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+  });
+
+      $(document).ready( function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+
+          var input = $(this).parents('.input-group').find(':text'),
+              log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+          if( input.length ) {
+              input.val(log);
+          } else {
+              if( log ) alert(log);
+          }
+
+      });
+  });
+  function checkForm(form)
+  {
+    var fname = $.trim($('#filename').val());
+
+    // Check if empty of not
+    if (fname === '') {
+        alert('No file uploaded!');
+        return false;
+    }
+
+    form.confirm.disabled = true;
+    $("#confirm").html("Please wait...");
+    $('#loader').removeClass('d-none');
+    return true;
+  }
+
+//     function moveScroll(){
+//     var scroll = $(window).scrollTop();
+//     var anchor_top = $("#maintable").offset().top;
+//     var anchor_bottom = $("#bottom_anchor").offset().top;
+//     if (scroll>anchor_top && scroll<anchor_bottom) {
+//     clone_table = $("#clone");
+//     if(clone_table.length == 0){
+//         clone_table = $("#maintable").clone();
+//         clone_table.attr('id', 'clone');
+//         clone_table.css({position:'fixed',
+//                 'pointer-events': 'none',
+//                 top:0});
+//         clone_table.width($("#maintable").width());
+//         $("#nav-network").append(clone_table);
+//         $("#clone").css({visibility:'hidden'});
+//         $("#clone").css({'visibility':'visible','pointer-events':'auto'});
+//     }
+//     } else {
+//     $("#clone").remove();
+//     }
+// }
+// $(window).scroll(moveScroll);
+    </script>
+  </body>
+
+</html>
