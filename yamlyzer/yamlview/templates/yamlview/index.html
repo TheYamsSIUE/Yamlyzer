@@ -45,6 +45,7 @@
     <script src="{% static "yamlview/popper.min.js" %}"></script>
     <script src="{% static "yamlview/bootstrap.min.js" %}"></script>    
     <script src="{% static "yamlview/jquery.tablesorter.min.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js"></script>
     <script>
         $(function () {
         'use strict'
@@ -69,14 +70,89 @@
 
         $("#tablen").tablesorter(
            { theme : "bootstrap",
-              sortReset: true}
+              sortReset: true,
+              
+            headers: { 4: { filter: false }, 5:{filter: false}},
+              widgets: ["filter"],
+            widgetOptions : {
+                
+            // include column filters
+            //filter_columnFilters: true,
+            filter_placeholder: { search : 'Search' },
+            filter_saveFilters : true,
+            filter_cssFilter: [
+                'form-control',
+                'form-control',
+                'form-control', 
+                'form-control',
+                'form-control',
+                'form-control'
+            ],
+            // hide filter row when table is empty
+            filter_hideEmpty : true,
+            // if true, filters are collapsed initially, but can be revealed by hovering over the grey bar immediately
+            // below the header row. Additionally, tabbing through the document will open the filter row when an input gets focus
+            // in v2.26.6, this option will also accept a function
+            filter_hideFilters : true,
+            filter_reset: '.reset'
+            }
+            }
         );
         $("#tableh").tablesorter(
             {theme : "bootstrap",
-              sortReset: true});
+              sortReset: true,
+              headers: { 1: { filter: false }},
+              widgets: ["filter"],
+            widgetOptions : {
+                
+            // include column filters
+            //filter_columnFilters: true,
+            filter_placeholder: { search : 'Search' },
+            filter_saveFilters : true,
+            filter_cssFilter: [
+                'form-control',
+                'form-control',
+                'form-control'
+            ],
+            // hide filter row when table is empty
+            filter_hideEmpty : true,
+            // if true, filters are collapsed initially, but can be revealed by hovering over the grey bar immediately
+            // below the header row. Additionally, tabbing through the document will open the filter row when an input gets focus
+            // in v2.26.6, this option will also accept a function
+            filter_hideFilters : true,
+            filter_reset: '.reset'
+            }
+            }
+        );
         $("#tables").tablesorter(
             {theme : "bootstrap",
-              sortReset: true});
+              sortReset: true,
+              headers: { 4: { filter: false }},
+              widgets: ["filter"],
+            widgetOptions : {
+                
+            // include column filters
+            //filter_columnFilters: true,
+            filter_placeholder: { search : 'Search' },
+            filter_saveFilters : true,
+            filter_cssFilter: [
+                'form-control',
+                'form-control',
+                'form-control', 
+                'form-control',
+                'form-control',
+                'form-control'
+            ],
+            // hide filter row when table is empty
+            filter_hideEmpty : true,
+            // if true, filters are collapsed initially, but can be revealed by hovering over the grey bar immediately
+            // below the header row. Additionally, tabbing through the document will open the filter row when an input gets focus
+            // in v2.26.6, this option will also accept a function
+            filter_hideFilters : true,
+            filter_reset: '.reset'
+            }
+            }
+        );
 
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 
