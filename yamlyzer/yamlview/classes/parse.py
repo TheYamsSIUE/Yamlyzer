@@ -21,12 +21,12 @@ class Parse:
         self.site = Site.render(docs)
 
         # Sort networks by name
-        self.network = sorted(self.network, key = lambda i: [i['name']])
+        # self.network = sorted(self.network, key = lambda i: [i['name']])
 
         # Sort hosts by Node
-        self.hosts = sorted(self.hosts, key = lambda i: [i['name']])
+        # self.hosts = sorted(self.hosts, key = lambda i: [i['name']])
 
         # Sort software by Chart
-        self.software = sorted(self.software, key = lambda i: [i['chart']])
+        # self.software = sorted(self.software, key = lambda i: [i['chart']])
 
         return {"uploaded_file_url": self.filename, "site": self.site, "network": self.network, "hosts": self.hosts, "software": self.software}

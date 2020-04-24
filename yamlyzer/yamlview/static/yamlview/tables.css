@@ -35,6 +35,15 @@
     
 }
 
+.tablesorter-bootstrap thead .tablesorter-header{
+    vertical-align: middle;
+}
+
+.tablesorter-bootstrap .tablesorter-header-inner {
+    position: relative;
+    padding: 0.7vw 1.5vw 0.7vw 0.5vw;
+    font-size: medium;
+}
 
 #header-fixed {
     position: fixed;
@@ -68,3 +77,4 @@
   padding: 0.3rem;
   width: 50%;
 }
+
