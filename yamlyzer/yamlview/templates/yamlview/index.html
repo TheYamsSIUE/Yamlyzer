@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>YAMLyzer</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "yamlview/bootstrap.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "yamlview/tables.css" %}">
@@ -43,6 +44,7 @@
     <script src="{% static "yamlview/jquery-3.3.1.slim.min.js" %}"></script>
     <script src="{% static "yamlview/popper.min.js" %}"></script>
     <script src="{% static "yamlview/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
     <script>
         $(function () {
         'use strict'
@@ -59,6 +61,23 @@
   });
 
       $(document).ready( function() {
+        /*TableSorter init*/
+        // set columns that do not need sort
+        $("#tablen thead th:eq(5)").data("sorter", false);
+        $("#tablen thead th:eq(4)").data("sorter", false);
+        $("#tableh thead th:eq(1)").data("sorter", false);
+
+        $("#tablen").tablesorter(
+           { theme : "bootstrap",
+              sortReset: true}
+        );
+        $("#tableh").tablesorter(
+            {theme : "bootstrap",
+              sortReset: true});
+        $("#tables").tablesorter(
+            {theme : "bootstrap",
+              sortReset: true});
+
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 
           var input = $(this).parents('.input-group').find(':text'),
