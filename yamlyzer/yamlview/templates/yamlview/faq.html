@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="{% static "yamlview/bootstrap.min.css" %}">
   <link rel="stylesheet" type="text/css" href="{% static "yamlview/tables.css" %}">
   <link rel="stylesheet" type="text/css" href="{% static "yamlview/canvas.css" %}">
+  <link rel="icon" href="{% static "yamlview/favicon.ico" %}"> 
 </head>
 
 <body>
@@ -97,39 +98,6 @@
     <!-- </div> -->
   </main>
 
-  <div class="modal fade" id="openfileModal" tabindex="-1" role="dialog" aria-labelledby="openfileModalTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <form method='post' class="form" role="form" enctype="multipart/form-data">
-          <div class="modal-header">
-            <h5 class="modal-title" id="openfileModalTitle">Open a new YAML</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="input-group">
-              <span class="input-group-btn">
-
-                <span class="btn btn-primary btn-file">
-                  Browse&hellip;
-                  {% csrf_token %}
-                  <input type="file" name="myfile" accept=".yaml" single>
-                </span>
-              </span>
-              <input type="text" class="form-control" readonly>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Confirm</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <script src="{% static "yamlview/jquery-3.3.1.slim.min.js" %}"></script>
   <script src="{% static "yamlview/popper.min.js" %}"></script>
   <script src="{% static "yamlview/bootstrap.min.js" %}"></script>
@@ -177,17 +145,17 @@
     <div class="col-6 col-md">
       <h5>Resources</h5>
       <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="https://www.openstack.org/">OpenStack</a></li>
         <li><a class="text-muted" href="https://wiki.openstack.org/wiki/Airship">Airship</a></li>
         <li><a class="text-muted" href="https://github.com/TheYamsSIUE/Yamlyzer">Yamlyzer</a></li>
-        <li><a class="text-muted" href="#">Another resource</a></li>
       </ul>
     </div>
     <div class="col-6 col-md">
       <h5>About</h5>
       <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Team</a></li>
+        <li><a class="text-muted" href="https://github.com/orgs/TheYamsSIUE/people">Team</a></li>
         <li><a class="text-muted" href="#">Privacy</a></li>
-        <li><a class="text-muted" href="#">Terms</a></li>
+        <li><a class="text-muted" href="https://www.apache.org/licenses/LICENSE-2.0">Terms</a></li>
       </ul>
     </div>
   </div>
